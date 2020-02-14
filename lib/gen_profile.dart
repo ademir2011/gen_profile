@@ -60,12 +60,12 @@ class GP {
 
   static Map location() {
     return {
-      'rua': 'Travessa Marcelino Garrido',
-      'cidade': 'Salvador',
-      'bairro': 'Valéria',
-      'estado': 'bahia',
-      'sigla': 'BA',
-      'cep': '41301-745',
+      'street': 'Travessa Marcelino Garrido',
+      'city': 'Salvador',
+      'neighborhood': 'Valéria',
+      'state': 'bahia',
+      'initials': 'BA',
+      'zipCode': '41301-745',
     };
   }
 
@@ -76,7 +76,9 @@ class GP {
 
   static String cell() {
     var cell = [];
-    for (var i = 0; i < 9; i++) cell.add(random.nextInt(10) + 1);
+    for (var i = 0; i < 9; i++) {
+      cell.add(random.nextInt(10) + 1);
+    }
     cell.insert(2, 9);
     return cell.join();
   }
@@ -95,7 +97,9 @@ class GP {
 
   static String cpf() {
     var cpf = <int>[];
-    for (var i = 0; i < 9; i++) cpf.add(random.nextInt(9) + 1);
+    for (var i = 0; i < 9; i++) {
+      cpf.add(random.nextInt(9) + 1);
+    }
 
     var digit_1 = getDigitOne(cpf);
     cpf.add(digit_1);
