@@ -4,6 +4,12 @@ import 'package:test/test.dart';
 void main() {
   print('''
     Login => ${GP.login()}
+
+    Login (Apenas letras) => ${GP.login(size: 10, letters: true, numbers: false)}
+    Login (Apenas números) => ${GP.login(size: 10, letters: false, numbers: true)}
+
+    Login (Letras e números) => ${GP.login(size: 10, letters: true, numbers: true)}
+
     Password => ${GP.password()}
     First Name => ${GP.first_name()}
     Last Name => ${GP.last_name()}
@@ -14,8 +20,29 @@ void main() {
     cpf => ${GP.cpf()}
   ''');
 
+  test('Testando possíveis resultados para logins', () {
+    expect(GP.login(size: 10).length, equals(10));
+    expect(GP.login(size: 1).length, equals(1));
+    expect(GP.login(size: 100).length, equals(100));
+    expect(
+      GP.login(size: 10, numbers: true).runtimeType,
+      equals(0.runtimeType),
+    );
+    expect(
+      GP.login(size: 10, letters: true).runtimeType,
+      equals(''.runtimeType),
+    );
+    expect(
+      GP.login(size: 10, letters: true, numbers: false).runtimeType,
+      equals(''.runtimeType),
+    );
+    expect(
+      GP.login(size: 10, letters: false, numbers: true).runtimeType,
+      equals(0.runtimeType),
+    );
+  });
+
   test('Testando se os resultados são do tipo esperado', () {
-    expect(GP.login().runtimeType, equals(''.runtimeType));
     expect(GP.password().runtimeType, equals(''.runtimeType));
     expect(GP.first_name().runtimeType, equals(''.runtimeType));
     expect(GP.last_name().runtimeType, equals(''.runtimeType));

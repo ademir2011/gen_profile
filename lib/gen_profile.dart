@@ -5,6 +5,36 @@ import 'dart:math';
 class GP {
   static GP _instance;
   static Random random = Random();
+
+  static const List<String> lettersList = [
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+    'g',
+    'h',
+    'i',
+    'j',
+    'k',
+    'l',
+    'm',
+    'n',
+    'o',
+    'p',
+    'q',
+    'r',
+    's',
+    't',
+    'u',
+    'v',
+    'w',
+    'x',
+    'w',
+    'z',
+    'ç'
+  ];
   static const List<String> first_names = [
     'Snyder',
     'Ruiz',
@@ -45,11 +75,9 @@ class GP {
 
   GP._internalContructor();
 
-  static String login() =>
-      first_name() + (random.nextInt(1000) + 1000).toString();
-
-  static String password() =>
-      first_name() + (random.nextInt(1000) + 1000).toString();
+  /********************************
+   ********* DADOS PESSOAIS *******
+   ********************************/
 
   static String first_name() => first_names[random.nextInt(first_names.length)];
 
@@ -57,17 +85,6 @@ class GP {
 
   static String gender() =>
       (random.nextInt(2) + 1) % 2 == 0 ? 'Homem' : 'Mulher';
-
-  static Map location() {
-    return {
-      'street': 'Travessa Marcelino Garrido',
-      'city': 'Salvador',
-      'neighborhood': 'Valéria',
-      'state': 'bahia',
-      'initials': 'BA',
-      'zipCode': '41301-745',
-    };
-  }
 
   static String email() =>
       '${first_names[random.nextInt(first_names.length)]}@generateprofile.com';
@@ -113,4 +130,43 @@ class GP {
   static String cnh() => '71334321621';
 
   static String rg() => '00123456';
+
+  /********************************
+   ********* AUTENTICAÇÃO *********
+   ********************************/
+
+  static String genChar() => lettersList[random.nextInt(lettersList.length)];
+  static int genNum(int min, int max) => random.nextInt(max) + min;
+  static bool genFPC() => (random.nextInt(2) + 1) % 2 == 0 ? true : false;
+
+  static dynamic login(
+      {int size = null, bool numbers = false, bool letters = false}) {
+    if (size != null && ((numbers && letters) || (!numbers && !letters))) {
+      return List(size).map((e) => genFPC() ? genChar() : genNum(0, 10)).join();
+    } else if (size != null && !numbers && letters) {
+      return List(size).map((e) => genChar()).join();
+    } else if (size != null && numbers && !letters) {
+      return int.parse(List(size).map((e) => genNum(0, 10)).join());
+    } else {
+      return first_name() + (random.nextInt(1000) + 1000).toString();
+    }
+  }
+
+  static String password() =>
+      first_name() + (random.nextInt(1000) + 1000).toString();
+
+  /********************************
+   ********** LOCALIZAÇÃO *********
+   ********************************/
+
+  static Map location() {
+    return {
+      'street': 'Travessa Marcelino Garrido',
+      'city': 'Salvador',
+      'neighborhood': 'Valéria',
+      'state': 'bahia',
+      'initials': 'BA',
+      'zipCode': '41301-745',
+    };
+  }
 }
