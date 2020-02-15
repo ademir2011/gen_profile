@@ -1,6 +1,6 @@
 name: gen_profile
 description: Gen Profile é um pacote de gerador de informações para campos de fomulários. Evite perder tempo digitando, use o Gen !
-version: 0.1.0
+version: 0.2.1
 homepage: https://github.com/ademir2011
 
 environment:

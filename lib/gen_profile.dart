@@ -75,10 +75,7 @@ class GP {
 
   GP._internalContructor();
 
-  /********************************
-   ********* DADOS PESSOAIS *******
-   ********************************/
-
+  /// DADOS PESSOAIS
   static String first_name() => first_names[random.nextInt(first_names.length)];
 
   static String last_name() => last_names[random.nextInt(last_names.length)];
@@ -131,33 +128,35 @@ class GP {
 
   static String rg() => '00123456';
 
-  /********************************
-   ********* AUTENTICAÇÃO *********
-   ********************************/
+  /// AUTENTICAÇÃO
 
   static String genChar() => lettersList[random.nextInt(lettersList.length)];
   static int genNum(int min, int max) => random.nextInt(max) + min;
   static bool genFPC() => (random.nextInt(2) + 1) % 2 == 0 ? true : false;
 
-  static dynamic login(
-      {int size = null, bool numbers = false, bool letters = false}) {
+  static dynamic genLogPass(int size, bool numbers, bool letters) {
     if (size != null && ((numbers && letters) || (!numbers && !letters))) {
       return List(size).map((e) => genFPC() ? genChar() : genNum(0, 10)).join();
-    } else if (size != null && !numbers && letters) {
-      return List(size).map((e) => genChar()).join();
-    } else if (size != null && numbers && !letters) {
-      return int.parse(List(size).map((e) => genNum(0, 10)).join());
+    } else if (!numbers && letters) {
+      return List(size ??= random.nextInt(5) + 5).map((e) => genChar()).join();
+    } else if (numbers && !letters) {
+      return int.parse(
+        List(size ??= random.nextInt(5) + 5).map((e) => genNum(0, 10)).join(),
+      );
     } else {
       return first_name() + (random.nextInt(1000) + 1000).toString();
     }
   }
 
-  static String password() =>
-      first_name() + (random.nextInt(1000) + 1000).toString();
+  static dynamic login(
+          {int size = -1, bool numbers = false, bool letters = false}) =>
+      genLogPass(size <= 0 ? null : size, numbers, letters);
 
-  /********************************
-   ********** LOCALIZAÇÃO *********
-   ********************************/
+  static dynamic password(
+          {int size = -1, bool numbers = false, bool letters = false}) =>
+      genLogPass(size <= 0 ? null : size, numbers, letters);
+
+  /// LOCALIZAÇÃO
 
   static Map location() {
     return {

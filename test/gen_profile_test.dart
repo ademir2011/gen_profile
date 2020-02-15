@@ -2,28 +2,15 @@ import 'package:gen_profile/gen_profile.dart';
 import 'package:test/test.dart';
 
 void main() {
-  print('''
-    Login => ${GP.login()}
+  print('${GP.login(numbers: true)}');
 
-    Login (Apenas letras) => ${GP.login(size: 10, letters: true, numbers: false)}
-    Login (Apenas números) => ${GP.login(size: 10, letters: false, numbers: true)}
-
-    Login (Letras e números) => ${GP.login(size: 10, letters: true, numbers: true)}
-
-    Password => ${GP.password()}
-    First Name => ${GP.first_name()}
-    Last Name => ${GP.last_name()}
-    Gender => ${GP.gender()}
-    email => ${GP.email()}
-    phone => ${GP.phone()}
-    cell => ${GP.cell()}
-    cpf => ${GP.cpf()}
-  ''');
-
-  test('Testando possíveis resultados para logins', () {
+  test('Testando possíveis resultados para login', () {
     expect(GP.login(size: 10).length, equals(10));
     expect(GP.login(size: 1).length, equals(1));
     expect(GP.login(size: 100).length, equals(100));
+
+    expect(GP.login(numbers: true).runtimeType, equals(0.runtimeType));
+
     expect(
       GP.login(size: 10, numbers: true).runtimeType,
       equals(0.runtimeType),
@@ -39,6 +26,36 @@ void main() {
     expect(
       GP.login(size: 10, letters: false, numbers: true).runtimeType,
       equals(0.runtimeType),
+    );
+    expect(
+      GP.login().runtimeType,
+      equals(''.runtimeType),
+    );
+  });
+
+  test('Testando possíveis resultados para password', () {
+    expect(GP.password(size: 10).length, equals(10));
+    expect(GP.password(size: 1).length, equals(1));
+    expect(GP.password(size: 100).length, equals(100));
+    expect(
+      GP.password(size: 10, numbers: true).runtimeType,
+      equals(0.runtimeType),
+    );
+    expect(
+      GP.password(size: 10, letters: true).runtimeType,
+      equals(''.runtimeType),
+    );
+    expect(
+      GP.password(size: 10, letters: true, numbers: false).runtimeType,
+      equals(''.runtimeType),
+    );
+    expect(
+      GP.password(size: 10, letters: false, numbers: true).runtimeType,
+      equals(0.runtimeType),
+    );
+    expect(
+      GP.login().runtimeType,
+      equals(''.runtimeType),
     );
   });
 

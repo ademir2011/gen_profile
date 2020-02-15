@@ -16,6 +16,10 @@ import 'package:gen_profile/gen_profile.dart';
 main() {
   print('''
     Login => ${GP.login()} //Gerar login aleatório
+    Login => ${GP.login(size: 10)} //Gerar login aleatório com tamanho de 10 caracteres
+    Login => ${GP.login(numbers: true)} //Gerar login aleatório apenas com números
+    Login => ${GP.login(letters: true)} //Gerar login aleatório apenas com letras
+
     Password => ${GP.password()} //Gerar senha aleatória
     First Name => ${GP.first_name()} //Gerar primeiro nome
     Last Name => ${GP.last_name()} //Gerar segundo nome
